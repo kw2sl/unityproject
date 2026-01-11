@@ -1,0 +1,24 @@
+<IfModule mod_mime.c>
+    # GZIP compressed files
+    AddEncoding gzip .unityweb
+    AddEncoding gzip .bundle
+    AddEncoding gzip .data.gz
+    AddEncoding gzip .js.gz
+    AddEncoding gzip .wasm.gz
+    AddEncoding gzip .symbols.json.gz
+    
+    # MIME types for Unity WebGL
+    AddType application/wasm .wasm
+    AddType application/octet-stream .data
+    AddType application/javascript .js
+    AddType application/octet-stream .unityweb
+    AddType application/octet-stream .bundle
+    
+    # Set Cache-Control for better performance
+    <FilesMatch "\.(data|js|wasm|bundle|unityweb)$">
+        Header set Cache-Control "public, max-age=31536000"
+    </FilesMatch>
+</IfModule>
+
+# Enable CORS if needed
+Header set Access-Control-Allow-Origin "*"
